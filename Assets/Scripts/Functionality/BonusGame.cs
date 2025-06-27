@@ -87,8 +87,8 @@ public class BonusGame : MonoBehaviour
     [SerializeField] private GameObject m_StopGameobject;
     [SerializeField] internal GameObject m_BonusWonPopup;
 
-    BonusResult m_DefaultStructure;
-    BonusResult m_ReceivedStructure;
+    //BonusResult m_DefaultStructure;
+    //BonusResult m_ReceivedStructure;                                                        // change it ashu
 
     private bool ison = true;
     public List<int> resultnum = new List<int>();
@@ -104,13 +104,13 @@ public class BonusGame : MonoBehaviour
         InvokeRepeating("ToggleOnOff", 0.1f, 0.2f);
         tweenHeight = (myImages.Length * IconSizeFactor) - 280;
 
-        m_DefaultStructure = new BonusResult
-        {
-            innerMatrix = new List<List<int>> { new List<int> { 5, 5, 6 }, new List<int> { 6, 6, 3 }, new List<int> { 2, 3, 4 } },
-            outerRingSymbol = new List<int> { 5, 3, 7 },
-            totalWinAmount = 2.5,
-            winings = new List<string> { "1.0", "1.0", "0" }
-        };
+        //m_DefaultStructure = new BonusResult                                                    //change it here ashu
+        //{
+        //    innerMatrix = new List<List<int>> { new List<int> { 5, 5, 6 }, new List<int> { 6, 6, 3 }, new List<int> { 2, 3, 4 } },
+        //    outerRingSymbol = new List<int> { 5, 3, 7 },
+        //    totalWinAmount = 2.5,
+        //    winings = new List<string> { "1.0", "1.0", "0" }
+        //};
     }
 
     //just for testing purposes delete on production
@@ -144,16 +144,16 @@ public class BonusGame : MonoBehaviour
         }
     }
 
-    internal void StartBonus(int m_count, BonusResult m_BonusData)
-    {
-        Debug.Log("bonusgamedataloaded");
-        m_ReceivedStructure = m_BonusData;
-        N_SpinCount = m_count;
-        m_StopGameobject = null;
-        N_SpinCount_Begin = 0;
-        Lives = m_ReceivedStructure.outerRingSymbol.Count(x => x == 7);
-        m_TotalWonAmount.text = m_ReceivedStructure.totalWinAmount.ToString();
-    }
+    //internal void StartBonus(int m_count, BonusResult m_BonusData)                                          //change it here ashu
+    //{
+    //    Debug.Log("bonusgamedataloaded");
+    //    m_ReceivedStructure = m_BonusData;
+    //    N_SpinCount = m_count;
+    //    m_StopGameobject = null;
+    //    N_SpinCount_Begin = 0;
+    //    Lives = m_ReceivedStructure.outerRingSymbol.Count(x => x == 7);
+    //    m_TotalWonAmount.text = m_ReceivedStructure.totalWinAmount.ToString();
+    //}
 
     //starts the spin process
     private void StartSlots(bool autoSpin = false)
@@ -264,9 +264,9 @@ public class BonusGame : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        m_StopGameobject = PopulateOuterMatrix(m_ReceivedStructure.outerRingSymbol[N_SpinCount_Begin]);
+        //m_StopGameobject = PopulateOuterMatrix(m_ReceivedStructure.outerRingSymbol[N_SpinCount_Begin]);                          //changeit here ashu
 
-        PopulateInnerMatrix();
+        //PopulateInnerMatrix();
 
         for (int i = 0; i < numberOfSlots; i++)
         {
@@ -288,7 +288,7 @@ public class BonusGame : MonoBehaviour
 
         CheckPayoutLineBackend(resultnum);
 
-        m_Amount.text = (m_ReceivedStructure.winings[N_SpinCount_Begin - 1]).ToString();
+        //m_Amount.text = (m_ReceivedStructure.winings[N_SpinCount_Begin - 1]).ToString();                             // change it here ashu
 
         yield return new WaitForSeconds(3f);
         KillAllTweens();
@@ -344,19 +344,19 @@ public class BonusGame : MonoBehaviour
         }
     }
 
-    private void PopulateInnerMatrix()
-    {
-        for(int i = 0; i < Tempimages.Count; i++)
-        {
-            Tempimages[i].slotImages[0].transform.GetChild(0).GetComponent<Image>().sprite = myImages[m_ReceivedStructure.innerMatrix[N_SpinCount_Begin][i]];
-            Tempimages[i].slotImages[0].GetComponent<OuterReelItem>().image.GetComponent<ImageAnimation>().textureArray = GetSpriteList(m_ReceivedStructure.innerMatrix[N_SpinCount_Begin][i]).ToList();
-        }
-        Debug.Log(N_SpinCount_Begin);
-        if(N_SpinCount_Begin < N_SpinCount)
-        {
-            N_SpinCount_Begin++;
-        }
-    }
+    //private void PopulateInnerMatrix()                                                // change it here ashu
+    //{
+    //    for(int i = 0; i < Tempimages.Count; i++)
+    //    {
+    //        Tempimages[i].slotImages[0].transform.GetChild(0).GetComponent<Image>().sprite = myImages[m_ReceivedStructure.innerMatrix[N_SpinCount_Begin][i]];
+    //        Tempimages[i].slotImages[0].GetComponent<OuterReelItem>().image.GetComponent<ImageAnimation>().textureArray = GetSpriteList(m_ReceivedStructure.innerMatrix[N_SpinCount_Begin][i]).ToList();
+    //    }
+    //    Debug.Log(N_SpinCount_Begin);
+    //    if(N_SpinCount_Begin < N_SpinCount)
+    //    {
+    //        N_SpinCount_Begin++;
+    //    }
+    //}
 
     private Sprite[] GetSpriteList(int m_value)
     {

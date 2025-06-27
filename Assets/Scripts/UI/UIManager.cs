@@ -188,14 +188,14 @@ public class UIManager : MonoBehaviour
         megawin_TweenTwo?.Kill();
         MainPopup_Object.SetActive(false);
         megaWIn.SetActive(false);
-        slotManager.CheckBonusGame();
+        //slotManager.CheckBonusGame();                             /change it here ashu
         
     }
 
     internal void disableMwinPopupReset()
     {
         slotManager.CheckPopups = false;
-        if (slotManager.WasAutoSpinOn && !slotManager.SocketManager.resultData.isBonus)
+        if (slotManager.WasAutoSpinOn && !slotManager.SocketManager.ResultData.bonus.isBonus)
         {
             slotManager.callAutoSpinAgain();
         }
@@ -232,7 +232,7 @@ public class UIManager : MonoBehaviour
         {
             if (megaWIn) megaWIn.SetActive(false);
             if (MainPopup_Object) MainPopup_Object.SetActive(false);
-            slotManager.CheckBonusGame();
+            //slotManager.CheckBonusGame();                                          // change it here ashu
         });
     }
 
@@ -253,28 +253,15 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    internal void InitialiseUIData(string SupportUrl, string AbtImgUrl, string TermsUrl, string PrivacyUrl, Paylines symbolsText, List<string> Specialsymbols)
+    internal void InitialiseUIData( Paylines symbolsText)
     {
-        //if (Support_Button) Support_Button.onClick.RemoveAllListeners();
-        //if (Support_Button) Support_Button.onClick.AddListener(delegate { UrlButtons(SupportUrl); });
 
-        //if (Terms_Button) Terms_Button.onClick.RemoveAllListeners();
-        //if (Terms_Button) Terms_Button.onClick.AddListener(delegate { UrlButtons(TermsUrl); });
-
-        //if (Privacy_Button) Privacy_Button.onClick.RemoveAllListeners();
-        //if (Privacy_Button) Privacy_Button.onClick.AddListener(delegate { UrlButtons(PrivacyUrl); });
 
         PopulateSymbolsPayout(symbolsText);
-        PopulateSpecialSymbols(Specialsymbols);
+       
     }
 
-    private void PopulateSpecialSymbols(List<string> Specialtext)
-    {
-        //for (int i = 0; i < SpecialSymbolsText.Length; i++)
-        //{
-        //    if (SpecialSymbolsText[i]) SpecialSymbolsText[i].text = Specialtext[i];
-        //}
-    }
+
 
     internal void LowBalPopup()
     {
@@ -288,47 +275,45 @@ public class UIManager : MonoBehaviour
 
     private void PopulateSymbolsPayout(Paylines paylines)
     {
-        for (int i = 0; i < paylines.symbols.Count; i++)
-        {
-            string text = null;
-            if(i < paylines.symbols.Count - 4)
-            {
-                if (paylines.symbols[i].Multiplier[0][0] != 0)
-                {
-                    text += string.Concat("<color=#F8D229>", "5x - " + paylines.symbols[i].Multiplier[0][0] +"x", "</color>");
-                }
-                if (paylines.symbols[i].Multiplier[1][0] != 0)
-                {
-                    text += string.Concat("<color=#F8D229>", "\n4x - " + paylines.symbols[i].Multiplier[1][0] + "x", "</color>");
-                }
-                if (paylines.symbols[i].Multiplier[2][0] != 0)
-                {
-                    text += string.Concat("<color=#F8D229>", "\n3x - " + paylines.symbols[i].Multiplier[2][0] + "x", "</color>");
-                }
-            }
-            else
-            {
-                switch (paylines.symbols[i].Name.ToUpper())
-                {
-                    //case "FREESPIN":
-                    //    text += paylines.symbols[i].description;
-                    //    break;
-                    case "WILD":
-                        text += paylines.symbols[i].description;
-                        break;
-                    case "SCATTER":
-                        text += paylines.symbols[i].description;
-                        break;
-                    case "JACKPOT":
-                        text += paylines.symbols[i].description;
-                        break;
-                    case "BONUS":
-                        text += paylines.symbols[i].description;
-                        break;
-                }
-            }
-            if (SymbolsText[i]) SymbolsText[i].text = text;
-        }
+        //for (int i = 0; i < paylines.symbols.Count; i++)
+        //{
+        //    string text = null;
+        //    if(i < paylines.symbols.Count - 4)
+        //    {
+        //        if (paylines.symbols[i].Multiplier[0][0] != 0)
+        //        {
+        //            text += string.Concat("<color=#F8D229>", "5x - " + paylines.symbols[i].Multiplier[0][0] +"x", "</color>");
+        //        }
+        //        if (paylines.symbols[i].Multiplier[1][0] != 0)
+        //        {
+        //            text += string.Concat("<color=#F8D229>", "\n4x - " + paylines.symbols[i].Multiplier[1][0] + "x", "</color>");
+        //        }
+        //        if (paylines.symbols[i].Multiplier[2][0] != 0)
+        //        {
+        //            text += string.Concat("<color=#F8D229>", "\n3x - " + paylines.symbols[i].Multiplier[2][0] + "x", "</color>");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        switch (paylines.symbols[i].Name.ToUpper())
+        //        {
+                    
+        //            case "WILD":
+        //                text += paylines.symbols[i].description;
+        //                break;
+        //            case "SCATTER":
+        //                text += paylines.symbols[i].description;
+        //                break;
+        //            case "JACKPOT":
+        //                text += paylines.symbols[i].description;
+        //                break;
+        //            case "BONUS":
+        //                text += paylines.symbols[i].description;
+        //                break;
+        //        }
+        //    }
+        //    if (SymbolsText[i]) SymbolsText[i].text = text;
+        //}
     }
 
     internal void CallOnExitFunction()
