@@ -29,7 +29,7 @@ public class SocketIOManager : MonoBehaviour
     private SocketManager manager;
     [SerializeField] internal UIManager uiManager;
     //HACK: Socket URI
-    protected string TestSocketURI = "https://mx2md3l5-5000.inc1.devtunnels.ms/";
+    protected string TestSocketURI = "https://vgrvhwsv-5000.inc1.devtunnels.ms/";
     protected string SocketURI = null;
     // protected string nameSpace="game"; //BackendChanges
     [SerializeField] internal JSFunctCalls JSManager;
@@ -76,7 +76,7 @@ public class SocketIOManager : MonoBehaviour
         options.Reconnection = true;
         options.ConnectWith = Best.SocketIO.Transports.TransportTypes.WebSocket; //BackendChanges
 
-//        Application.ExternalCall("window.parent.postMessage", "authToken", "*");
+        //        Application.ExternalCall("window.parent.postMessage", "authToken", "*");
 
 #if UNITY_WEBGL && !UNITY_EDITOR
         JSManager.SendCustomMessage("authToken");
@@ -117,7 +117,6 @@ public class SocketIOManager : MonoBehaviour
             return new
             {
                 token = myAuth,
-                gameId = gameID
             };
         };
         options.Auth = authFunction;
@@ -152,7 +151,7 @@ public class SocketIOManager : MonoBehaviour
         gameSocket.On<string>(SocketIOEventTypes.Disconnect, OnDisconnected);
         gameSocket.On<string>(SocketIOEventTypes.Error, OnError);
         gameSocket.On<string>("game:init", OnListenEvent);
-        gameSocket.On<string>("spin:result", OnResult);
+        gameSocket.On<string>("result", OnResult);
         gameSocket.On<bool>("socketState", OnSocketState);
         gameSocket.On<string>("internalError", OnSocketError);
         gameSocket.On<string>("alert", OnSocketAlert);
@@ -249,7 +248,10 @@ public class SocketIOManager : MonoBehaviour
 
     internal void CloseSocket()
     {
-        SendDataWithNamespace("EXIT");
+        SendDataWithNamespace("game:exit");
+          #if UNITY_WEBGL && !UNITY_EDITOR
+    JSManager.SendCustomMessage("OnExit");
+#endif
     }
 
     private void ParseResponse(string jsonObject)
@@ -266,15 +268,15 @@ public class SocketIOManager : MonoBehaviour
                     InitialData = myData.gameData;
                     UIData = myData.uiData;
                     PlayerData = myData.player;
-                  //  bonusdata = GetBonusData(myData.gameData.spinBonus);
+                    bonusdata = GetBonusData(myData.gameData.spinBonus);
 
                     if (!SetInit)
                     {
                         Debug.Log(jsonObject);
 
                         List<string> LinesString = ConvertListListIntToListString(InitialData.lines);
-                       // List<string> InitialReels = ConvertListOfListsToStrings(InitialData.Reel);
-                       // InitialReels = RemoveQuotes(InitialReels);
+                        // List<string> InitialReels = ConvertListOfListsToStrings(InitialData.Reel);
+                        // InitialReels = RemoveQuotes(InitialReels);
                         //Debug.Log(string.Concat("<color=cyan><b>", string.Join(",", LinesString), "</b></color>"));
                         //Debug.Log(string.Concat("<color=cyan><b>", string.Join(",", InitialReels), "</b></color>"));
 
@@ -295,14 +297,14 @@ public class SocketIOManager : MonoBehaviour
                     isResultdone = true;
                     break;
                 }
-                case "ExitUser":
-        {
+            case "ExitUser":
+                {
                     if (gameSocket != null) //BackendChanges
                     {
                         Debug.Log("Dispose my Socket");
                         this.manager.Close();
                     }
-                   // Application.ExternalCall("window.parent.postMessage", "onExit", "*");
+                    // Application.ExternalCall("window.parent.postMessage", "onExit", "*");
 #if UNITY_WEBGL && !UNITY_EDITOR
                         JSManager.SendCustomMessage("onExit");
 #endif
@@ -351,14 +353,16 @@ public class SocketIOManager : MonoBehaviour
 
     }
 
-    internal void AccumulateResult(double currBet)
+    internal void AccumulateResult(int currBet)
     {
         isResultdone = false;
         MessageData message = new MessageData();
-        message.currentBet = slotManager.BetCounter;
+        message.type = "SPIN";
+        message.payload = new Data();
+        message.payload.betIndex = currBet;
         // Serialize message data to JSON
         string json = JsonUtility.ToJson(message);
-        SendDataWithNamespace("spin:request", json);
+        SendDataWithNamespace("request", json);
     }
 
     private void SendDataWithNamespace(string eventName, string json = null)
@@ -450,15 +454,32 @@ public class SocketIOManager : MonoBehaviour
 [Serializable]
 public class MessageData
 {
-    public int currentBet;
-}
+  // public int option;
+  // public List<int> index;
+  public string type;
+  public Data payload;
 
+}
+[Serializable]
+public class Data
+{
+  public int betIndex;
+
+}
 [Serializable]
 public class GameData
 {
     public List<List<int>> lines { get; set; }
     public List<double> bets { get; set; }
-   // public List<int> spinBonus { get; set; }
+    public List<int> spinBonus { get; set; }
+}
+
+public class BonusResult
+{
+    public List<List<int>> innerMatrix { get; set; }
+    public List<int> outerRingSymbol { get; set; }
+    public double totalWinAmount { get; set; }
+    public List<double> winings { get; set; }
 }
 
 
@@ -470,15 +491,6 @@ public class FreeSpins
     public bool isFreeSpin { get; set; }
 }
 
-[SerializeField]
-public class Bonus
-{
-    public bool isBonus { get; set; }
-    public int BonusSpinStopIndex { get; set; }
-    public double amount { get; set; }
-}
-
-
 [Serializable]
 public class Root
 {
@@ -487,7 +499,6 @@ public class Root
     public List<List<string>> matrix { get; set; }
     public string name { get; set; }
     public Payload payload { get; set; }
-    public Bonus bonus { get; set; }
     public Jackpot jackpot { get; set; }
     public Scatter scatter { get; set; }
     public FreeSpins freeSpin { get; set; }
@@ -496,6 +507,28 @@ public class Root
     public GameData gameData { get; set; }
     public UiData uiData { get; set; }
     public Player player { get; set; }
+
+
+
+    public Bonus bonus { get; set; }
+
+
+}
+
+[Serializable]
+public class Bonus
+{
+    public bool isTriggered { get; set; }
+    public Result result { get; set; }
+    public double amount { get; set; }
+}
+
+[Serializable]
+public class Result
+{
+    public List<int> outerElement { get; set; }
+    public List<List<int>> innerElements { get; set; }
+    public List<double> winAmount { get; set; }
 }
 
 [Serializable]
@@ -534,7 +567,7 @@ public class UiData
 public class Paylines
 {
     public List<Symbol> symbols { get; set; }
-   
+
 }
 
 [Serializable]

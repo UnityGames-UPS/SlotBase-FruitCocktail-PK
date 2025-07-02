@@ -729,22 +729,21 @@ public class SlotBehaviour : MonoBehaviour
 
         CheckPopups = true;
 
-        //if (SocketManager.ResultData.WinAmout >= currentTotalBet * 15)
-        //{
-        //    uiManager.PopulateWin(3, (double)SocketManager.ResultData.WinAmout);
-        //}
-        //else
-        //{
+        if (SocketManager.ResultData.payload.winAmount >= currentTotalBet * 15)
+        {
+           uiManager.PopulateWin(3, (double)SocketManager.ResultData.payload.winAmount);
+        }
+        else
+        {
            
-        //    CheckBonusGame();
-        //}
+           CheckBonusGame();
+        }
        
         yield return new WaitUntil(() => !CheckPopups);
-        Debug.Log(SocketManager.ResultData.bonus.isBonus);
         if (!IsAutoSpin && !IsFreeSpin)
         {
             
-            if (!SocketManager.ResultData.bonus.isBonus)
+            if (!SocketManager.ResultData.bonus.isTriggered)
             {
                 ToggleButtonGrp(true);
             }
@@ -757,12 +756,12 @@ public class SlotBehaviour : MonoBehaviour
         }
 
 
-        //if (SocketManager.ResultData.freeSpins.isNewAdded && !IsFreeSpin)
-        //{
+        // if (SocketManager.ResultData.freeSpin.isFreeSpin && !IsFreeSpin)
+        // {
 
-        //    uiManager.StartFreeSpins((int)SocketManager.ResultData.freeSpins.count);
+        //    uiManager.StartFreeSpins((int)SocketManager.ResultData.freeSpin.count);
         //    yield break;
-        //}
+        // }
     }
 
     private void CompareBalance()
@@ -796,45 +795,45 @@ public class SlotBehaviour : MonoBehaviour
         }
     }
 
-    //internal void CheckBonusGame()
-    //{
-    //    if (SocketManager.ResultData.isBonus)
-    //    {
-    //        if (WasAutoSpinOn)
-    //        {
-    //           IsAutoSpin = false;
-    //           StopCoroutine(AutoSpinCoroutine());                
-    //        }
+    internal void CheckBonusGame()
+    {
+       if (SocketManager.ResultData.bonus.isTriggered)
+       {
+           if (WasAutoSpinOn)
+           {
+              IsAutoSpin = false;
+              StopCoroutine(AutoSpinCoroutine());                
+           }
 
             
-    //        DOVirtual.DelayedCall(1f, () =>
-    //        {
-    //            m_GameManager.m_AudioController.m_Bonus_Audio.Play();
-    //            uiManager.MainPopup_Object.SetActive(true);
-    //            m_GameManager.m_Bonus_Start_Object.SetActive(true);
-    //        });
+           DOVirtual.DelayedCall(1f, () =>
+           {
+               m_GameManager.m_AudioController.m_Bonus_Audio.Play();
+               uiManager.MainPopup_Object.SetActive(true);
+               m_GameManager.m_Bonus_Start_Object.SetActive(true);
+           });
            
-    //       // m_GameManager.m_PushObject(m_GameManager.m_Bonus_Start_Object);
-    //        bonusManager.StartBonus(SocketManager.ResultData.BonusResult.winings.Count, SocketManager.ResultData.BonusResult);
-    //        Invoke("startbonusautomatically", 2f);
+           m_GameManager.m_PushObject(m_GameManager.m_Bonus_Start_Object);
+           bonusManager.StartBonus(SocketManager.ResultData.bonus.result.winAmount.Count);
+           Invoke("startbonusautomatically", 2f);
 
-    //    }
-    //    else
-    //    {
+       }
+       else
+       {
             
           
-    //            CheckPopups = false;
+               CheckPopups = false;
             
-    //    }
+       }
 
-    //    if (SocketManager.ResultData.freeSpins.count > 0)
-    //    {
-    //        if (IsAutoSpin)
-    //        {
-    //            StopAutoSpin();
-    //        }
-    //    }
-    //}
+       if (SocketManager.ResultData.freeSpin.isFreeSpin )
+       {
+           if (IsAutoSpin)
+           {
+               StopAutoSpin();
+           }
+       }
+    }
 
     
     internal void startbonusautomatically()
@@ -944,7 +943,7 @@ public class SlotBehaviour : MonoBehaviour
                     StartGameAnimation(Tempimages[columnIndex].slotImages[rowIndex].gameObject);
                 }
             }
-            //WinningsAnim(true);               //change it here ashu
+          //  WinningsAnim(true);               //change it here ashu
         }
         else
         {
@@ -1042,8 +1041,8 @@ public class SlotBehaviour : MonoBehaviour
 
     }
 
-    //private void WinningsAnim(bool IsStart)                           //change it here ashu
-    //{
+    // private void WinningsAnim(bool IsStart)                           //change it here ashu
+    // {
     //    if (IsStart)
     //    {
     //        WinTween = TotalWin_text.gameObject.GetComponent<RectTransform>().DOScale(new Vector2(1.5f, 1.5f), 1f).SetLoops(-1, LoopType.Yoyo).SetDelay(0);
@@ -1061,7 +1060,7 @@ public class SlotBehaviour : MonoBehaviour
     //            e.SetActive(false);
     //        }
     //    }
-    //}
+    // }
     #endregion
   
 

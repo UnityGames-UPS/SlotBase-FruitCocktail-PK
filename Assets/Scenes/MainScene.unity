@@ -8506,7 +8506,7 @@ MonoBehaviour:
   bonusdata: []
   uiManager: {fileID: 377874625}
   JSManager: {fileID: 274469487}
-  TestToken: 3317268a05ce4f5fb2b44d78e2835270
+  TestToken: 6e196c780cf74f8c8f2333f550b255a0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
