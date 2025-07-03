@@ -490,9 +490,9 @@ public class SlotBehaviour : MonoBehaviour
                 animScript.AnimationSpeed = 30f;
                 break;
             case 2:
-                for (int i = 0; i < Coconut_Sprite.Length; i++)
+                for (int i = 0; i < Watermelon_Sprite.Length; i++)
                 {
-                    animScript.textureArray.Add(Coconut_Sprite[i]);
+                    animScript.textureArray.Add(Watermelon_Sprite[i]);
                 }
                 animScript.AnimationSpeed = 15f;
                 break;
@@ -539,13 +539,6 @@ public class SlotBehaviour : MonoBehaviour
                 animScript.AnimationSpeed = 12f;
                 break;
             case 9:
-                for (int i = 0; i < Watermelon_Sprite.Length; i++)
-                {
-                    animScript.textureArray.Add(Watermelon_Sprite[i]);
-                }
-                animScript.AnimationSpeed = 12f;
-                break;
-            case 10:
                 for (int i = 0; i < Juice_Sprite.Length; i++)
                 {
                     animScript.textureArray.Add(Juice_Sprite[i]);
