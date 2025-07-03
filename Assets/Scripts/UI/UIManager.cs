@@ -277,7 +277,7 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < paylines.symbols.Count; i++)
         {
            string text = null;
-           if(i < paylines.symbols.Count - 4)
+           if(i < paylines.symbols.Count - 3)
            {
                if (paylines.symbols[i].multiplier[0] != 0)
                {

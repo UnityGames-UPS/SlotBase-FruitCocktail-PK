@@ -8506,7 +8506,7 @@ MonoBehaviour:
   bonusdata: []
   uiManager: {fileID: 377874625}
   JSManager: {fileID: 274469487}
-  TestToken: 6e196c780cf74f8c8f2333f550b255a0
+  TestToken: 4e410091b7a74286be8d68e11e21234a
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -18006,7 +18006,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1023456359
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18522,7 +18522,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -65}
+  m_AnchoredPosition: {x: -19, y: -65}
   m_SizeDelta: {x: 1626, y: 999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1059169712
@@ -24114,7 +24114,7 @@ GameObject:
   - component: {fileID: 1365834930}
   - component: {fileID: 1365834929}
   m_Layer: 5
-  m_Name: Coconut
+  m_Name: WaterMelon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24160,7 +24160,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8b0a2e12119c5451997b7f0f18124d2a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c4f641c9d49ea466c8c1e0e678d7537b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -25226,7 +25226,7 @@ GameObject:
   - component: {fileID: 1405689269}
   - component: {fileID: 1405689268}
   m_Layer: 5
-  m_Name: Juice
+  m_Name: Bonus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25272,9 +25272,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 23dee63e9b95b487f88f62d15f3f48a8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3dc744ae9b44b4752ac50390fb09ea84, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -30949,7 +30949,7 @@ GameObject:
   - component: {fileID: 1688260006}
   - component: {fileID: 1688260005}
   m_Layer: 5
-  m_Name: WaterMelon
+  m_Name: Scatter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30995,7 +30995,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 024e3247e336441b29cb0eb48f9bad5a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 23dee63e9b95b487f88f62d15f3f48a8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
