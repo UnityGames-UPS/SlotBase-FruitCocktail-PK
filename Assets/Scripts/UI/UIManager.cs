@@ -102,6 +102,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     SocketIOManager socketManager;
 
+    [SerializeField] private GameObject scatterWin_Popup;
+    [SerializeField] private TMP_Text scatterWin_text;
+
     private void Start()
     {
         if (CloseAD_Button) CloseAD_Button.onClick.RemoveAllListeners();
@@ -167,16 +170,22 @@ public class UIManager : MonoBehaviour
         OpenPopup(megaWIn);
         StartPopupAnim(amount);
     }
+    internal void PopulateScatterWin(double winAmount)
+    {
+        OpenPopup(scatterWin_Popup);
+        StartScatterwinAnim(winAmount);
+
+    }
 
     internal void StartFreeSpins(int spins)
     {
 
         FreeSpins = spins;
         currentSpin = FreeSpins;
-        print("spin"+currentSpin);
+        print("spin" + currentSpin);
         freeSpinSlider.fillAmount = 1f;
         freeSpintext.text = FreeSpins.ToString();
-        Invoke("FreeSpinProcess",1.5f);
+        Invoke("FreeSpinProcess", 1.5f);
 
     }
 
@@ -232,6 +241,24 @@ public class UIManager : MonoBehaviour
             if (megaWIn) megaWIn.SetActive(false);
             if (MainPopup_Object) MainPopup_Object.SetActive(false);
             slotManager.CheckBonusGame();                                          // change it here ashu
+        });
+    }
+
+     private void StartScatterwinAnim(double amount)
+    {
+        double initAmount = 0;
+        //if (WinPopup_Object) WinPopup_Object.SetActive(true);
+        if (MainPopup_Object) MainPopup_Object.SetActive(true);
+
+        megawin_TweenOne = DOTween.To(() => initAmount, (val) => initAmount = val, amount, 1f).OnUpdate(() =>
+        {
+            if (scatterWin_text) scatterWin_text.text = initAmount.ToString("f3");
+        });
+
+        megawin_TweenTwo = DOVirtual.DelayedCall(2f, () =>
+        {
+            if (scatterWin_Popup) scatterWin_Popup.SetActive(false);
+            if (MainPopup_Object) MainPopup_Object.SetActive(false);
         });
     }
 

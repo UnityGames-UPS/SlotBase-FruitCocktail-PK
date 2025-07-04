@@ -536,7 +536,7 @@ public class SlotBehaviour : MonoBehaviour
                 {
                     animScript.textureArray.Add(Wild_Sprite[i]);
                 }
-                animScript.AnimationSpeed = 12f;
+                animScript.AnimationSpeed = 20f;
                 break;
             case 9:
                 for (int i = 0; i < Juice_Sprite.Length; i++)
@@ -721,15 +721,20 @@ public class SlotBehaviour : MonoBehaviour
 
 
         CheckPopups = true;
+        if (SocketManager.ResultData.scatter.amount > 0)
+        {
+            uiManager.PopulateScatterWin(SocketManager.ResultData.scatter.amount);
+        }
+        yield return new WaitForSeconds(2.3f);
 
         if (SocketManager.ResultData.payload.winAmount >= currentTotalBet * 15)
         {
-           uiManager.PopulateWin(3, (double)SocketManager.ResultData.payload.winAmount);
+            uiManager.PopulateWin(3, (double)SocketManager.ResultData.payload.winAmount);
         }
         else
         {
-           
-           CheckBonusGame();
+
+            CheckBonusGame();
         }
        
         yield return new WaitUntil(() => !CheckPopups);
