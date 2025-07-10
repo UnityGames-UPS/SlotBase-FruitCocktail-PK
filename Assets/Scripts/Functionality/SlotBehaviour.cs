@@ -824,13 +824,13 @@ public class SlotBehaviour : MonoBehaviour
             
        }
 
-       if (SocketManager.ResultData.freeSpin.isFreeSpin )
-       {
-           if (IsAutoSpin)
-           {
-               StopAutoSpin();
-           }
-       }
+    //    if (SocketManager.ResultData.freeSpin.isFreeSpin )
+    //    {
+    //        if (IsAutoSpin)
+    //        {
+    //            StopAutoSpin();
+    //        }
+    //    }
     }
 
     
@@ -956,10 +956,6 @@ public class SlotBehaviour : MonoBehaviour
         bool playScatter = false;
         bool playBonus = false;
         bool playFreespin = false;
-        if (SocketManager.ResultData.jackpot.amount > 0)
-        {
-            playJackpot = true;
-        }
         if (SocketManager.ResultData.scatter.amount > 0)
         {
             playScatter = true;
@@ -967,10 +963,6 @@ public class SlotBehaviour : MonoBehaviour
         if (SocketManager.ResultData.bonus.amount > 0)
         {
             playBonus = true;
-        }
-        if (SocketManager.ResultData.freeSpin.isFreeSpin)
-        {
-            playFreespin = true;
         }
         PlayFeatureAnimation(playJackpot, playScatter, playBonus, playFreespin);
     }
