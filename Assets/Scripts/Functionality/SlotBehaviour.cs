@@ -724,8 +724,9 @@ public class SlotBehaviour : MonoBehaviour
         if (SocketManager.ResultData.scatter.amount > 0)
         {
             uiManager.PopulateScatterWin(SocketManager.ResultData.scatter.amount);
+            yield return new WaitForSeconds(2.3f);
         }
-        yield return new WaitForSeconds(2.3f);
+        
 
         if (SocketManager.ResultData.payload.winAmount >= currentTotalBet * 15)
         {
