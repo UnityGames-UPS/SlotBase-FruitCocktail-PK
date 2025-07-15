@@ -807,6 +807,7 @@ public class SlotBehaviour : MonoBehaviour
             
            DOVirtual.DelayedCall(1f, () =>
            {
+               uiManager.ResetPopups();
                m_GameManager.m_AudioController.m_Bonus_Audio.Play();
                uiManager.MainPopup_Object.SetActive(true);
                m_GameManager.m_Bonus_Start_Object.SetActive(true);

@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        OnClickDetection();
+       // OnClickDetection();
     }
 
     private void OnClickDetection()
@@ -64,25 +64,33 @@ public class GameManager : MonoBehaviour
 
         if (m_Quit_Confirm_Button) m_Quit_Confirm_Button.onClick.RemoveAllListeners();
         if (m_Quit_Confirm_Button) m_Quit_Confirm_Button.onClick.AddListener(() => { m_UIManager.CallOnExitFunction(); isExit = true; m_AudioController.m_Click_Audio.Play(); });
+
     }
 
     #region [[===POPUP GAMEOBJECT STACK MANAGEMENT===]]
 
     internal void m_PushObject(GameObject m_Object)
     {
-        if(m_ObjectStackOpen.Count > 0)
+        // if(m_ObjectStackOpen.Count > 0)
+        // {
+        //     m_Object.SetActive(true);
+        //     m_ObjectStackOpen.Add(m_Object);
+        // }
+        // else
+        // {
+        //     m_Object.SetActive(true);
+        //     m_ObjectStackOpen.Add(m_Object);
+        //     if (!m_UIManager.MainPopup_Object.activeSelf)
+        //     {
+        //         m_UIManager.MainPopup_Object.SetActive(true);
+        //     }
+        // }
+
+        m_Object.SetActive(true);
+        m_ObjectStackOpen.Add(m_Object);
+        if (!m_UIManager.MainPopup_Object.activeSelf)
         {
-            m_Object.SetActive(true);
-            m_ObjectStackOpen.Add(m_Object);
-        }
-        else
-        {
-            m_Object.SetActive(true);
-            m_ObjectStackOpen.Add(m_Object);
-            if (!m_UIManager.MainPopup_Object.activeSelf)
-            {
-                m_UIManager.MainPopup_Object.SetActive(true);
-            }
+            m_UIManager.MainPopup_Object.SetActive(true);
         }
     }
 
@@ -106,4 +114,6 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
+
+
 }

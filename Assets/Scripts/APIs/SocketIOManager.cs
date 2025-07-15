@@ -29,7 +29,7 @@ public class SocketIOManager : MonoBehaviour
     private SocketManager manager;
     [SerializeField] internal UIManager uiManager;
     //HACK: Socket URI
-    protected string TestSocketURI = "https://sl3l5zz3-5000.inc1.devtunnels.ms/";
+    protected string TestSocketURI = "https://frnp4zmn-5000.inc1.devtunnels.ms/";
     protected string SocketURI = null;
     // protected string nameSpace="game"; //BackendChanges
     [SerializeField] internal JSFunctCalls JSManager;

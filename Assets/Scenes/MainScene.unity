@@ -7073,6 +7073,28 @@ MonoBehaviour:
   socketManager: {fileID: 500036492}
   scatterWin_Popup: {fileID: 1580134764}
   scatterWin_text: {fileID: 781857388}
+  btn_Setting: {fileID: 743443772}
+  btn_Paytable: {fileID: 1307113789}
+  btn_Quitgame: {fileID: 2059886014}
+  btn_CloseSetting: {fileID: 895835162}
+  btn_ClosesePaytable: {fileID: 990849630}
+  btn_NoQuit: {fileID: 2071880279}
+  btn_YesQuit: {fileID: 773505911}
+  Popup_Setting: {fileID: 349138218}
+  Popup_Paytable: {fileID: 1023456358}
+  Popup_QuitGame: {fileID: 1341882379}
+  Popups:
+  - {fileID: 927980916}
+  - {fileID: 2132671485}
+  - {fileID: 1419542784}
+  - {fileID: 929113515}
+  - {fileID: 1580134764}
+  - {fileID: 1341882379}
+  - {fileID: 107097079}
+  - {fileID: 329890449}
+  - {fileID: 1460912657}
+  - {fileID: 349138218}
+  - {fileID: 1023456358}
 --- !u!1 &384409379
 GameObject:
   m_ObjectHideFlags: 0
@@ -7117,6 +7139,10 @@ MonoBehaviour:
   m_Settings_Object: {fileID: 349138218}
   m_Quit_Object: {fileID: 1341882379}
   m_Bonus_Start_Object: {fileID: 1419542784}
+  ExitGamebtn: {fileID: 2071880279}
+  ExitSettingbtn: {fileID: 895835162}
+  ExitPaytablebtn: {fileID: 990849630}
+  MainPopup_object: {fileID: 0}
 --- !u!4 &384409381
 Transform:
   m_ObjectHideFlags: 0
@@ -8585,7 +8611,7 @@ MonoBehaviour:
   bonusdata: []
   uiManager: {fileID: 377874625}
   JSManager: {fileID: 274469487}
-  TestToken: 1c892506b52f419195872d4983065440
+  TestToken: 9c92fff2eb8845a0a67678048a380f81
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -16223,7 +16249,6 @@ GameObject:
   - component: {fileID: 895835164}
   - component: {fileID: 895835163}
   - component: {fileID: 895835162}
-  - component: {fileID: 895835165}
   m_Layer: 5
   m_Name: Exit_Settings
   m_TagString: Untagged
@@ -16332,18 +16357,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 895835160}
   m_CullTransparentMesh: 1
---- !u!114 &895835165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 895835160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93ff3262a9d0349adb3836b975606f5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &915050746
 GameObject:
   m_ObjectHideFlags: 0
@@ -17710,7 +17723,6 @@ GameObject:
   - component: {fileID: 990849632}
   - component: {fileID: 990849631}
   - component: {fileID: 990849630}
-  - component: {fileID: 990849633}
   m_Layer: 5
   m_Name: Exit_Button
   m_TagString: Untagged
@@ -17819,18 +17831,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 990849628}
   m_CullTransparentMesh: 1
---- !u!114 &990849633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 990849628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93ff3262a9d0349adb3836b975606f5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &994292622
 GameObject:
   m_ObjectHideFlags: 0
@@ -40097,7 +40097,6 @@ GameObject:
   - component: {fileID: 2071880281}
   - component: {fileID: 2071880280}
   - component: {fileID: 2071880279}
-  - component: {fileID: 2071880282}
   m_Layer: 5
   m_Name: No
   m_TagString: Untagged
@@ -40206,18 +40205,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2071880277}
   m_CullTransparentMesh: 1
---- !u!114 &2071880282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2071880277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93ff3262a9d0349adb3836b975606f5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2078829621
 GameObject:
   m_ObjectHideFlags: 0

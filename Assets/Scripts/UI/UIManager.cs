@@ -105,6 +105,23 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject scatterWin_Popup;
     [SerializeField] private TMP_Text scatterWin_text;
 
+    [Header("Buttons")]
+    [SerializeField] private Button btn_Setting;
+    [SerializeField] private Button btn_Paytable;
+    [SerializeField] private Button btn_Quitgame;
+
+    [SerializeField] private Button btn_CloseSetting;
+    [SerializeField] private Button btn_ClosesePaytable;
+    [SerializeField] private Button btn_NoQuit;
+    [SerializeField] private Button btn_YesQuit;
+
+    [Header("Popups")]
+    [SerializeField] private GameObject Popup_Setting;
+    [SerializeField] private GameObject Popup_Paytable;
+    [SerializeField] private GameObject Popup_QuitGame;
+    [SerializeField] private GameObject[] Popups;
+
+
     private void Start()
     {
         if (CloseAD_Button) CloseAD_Button.onClick.RemoveAllListeners();
@@ -162,6 +179,15 @@ public class UIManager : MonoBehaviour
 
         CurrentIndex = 0;
         ActivatePaytable(CurrentIndex);
+
+        btn_Paytable.onClick.AddListener(() => { ResetPopups(); CurrentIndex = 0; ActivatePaytable(CurrentIndex); OpenPopup(Popup_Paytable); m_GameManager.m_AudioController.m_Click_Audio.Play(); });
+        btn_Setting.onClick.AddListener(() => { ResetPopups(); OpenPopup(Popup_Setting); m_GameManager.m_AudioController.m_Click_Audio.Play(); });
+        btn_Quitgame.onClick.AddListener(() => { ResetPopups(); OpenPopup(Popup_QuitGame); m_GameManager.m_AudioController.m_Click_Audio.Play(); });
+
+        btn_ClosesePaytable.onClick.AddListener(() => { ClosePopup(Popup_Paytable); m_GameManager.m_AudioController.m_Click_Audio.Play(); });
+        btn_CloseSetting.onClick.AddListener(() => { ClosePopup(Popup_Setting); m_GameManager.m_AudioController.m_Click_Audio.Play(); });
+        btn_YesQuit.onClick.AddListener(() => { CallOnExitFunction(); ClosePopup(Popup_QuitGame); m_GameManager.m_AudioController.m_Click_Audio.Play(); });
+        btn_NoQuit.onClick.AddListener(() => { ClosePopup(Popup_QuitGame); m_GameManager.m_AudioController.m_Click_Audio.Play(); });
     }
 
     internal void PopulateWin(int value, double amount)
@@ -197,7 +223,7 @@ public class UIManager : MonoBehaviour
         MainPopup_Object.SetActive(false);
         megaWIn.SetActive(false);
         //slotManager.CheckBonusGame();                             /change it here ashu
-        
+
     }
 
     internal void disableMwinPopupReset()
@@ -209,6 +235,14 @@ public class UIManager : MonoBehaviour
         }
 
     }
+   public void ResetPopups()
+    {
+        foreach (GameObject go in Popups)
+        {
+            go.SetActive(false);
+        }
+        MainPopup_Object.SetActive(false);
+    }
 
     private void FreeSpinProcess()
     {
@@ -216,7 +250,8 @@ public class UIManager : MonoBehaviour
         slotManager.FreeSpin(FreeSpins);
     }
 
-    internal void updateFreespinInfo() {
+    internal void updateFreespinInfo()
+    {
         currentSpin--;
         if (currentSpin > 0)
             freeSpinSlider.fillAmount = (float)currentSpin / (float)FreeSpins;
@@ -244,7 +279,7 @@ public class UIManager : MonoBehaviour
         });
     }
 
-     private void StartScatterwinAnim(double amount)
+    private void StartScatterwinAnim(double amount)
     {
         double initAmount = 0;
         //if (WinPopup_Object) WinPopup_Object.SetActive(true);
@@ -279,12 +314,12 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    internal void InitialiseUIData( Paylines symbolsText)
+    internal void InitialiseUIData(Paylines symbolsText)
     {
 
 
         PopulateSymbolsPayout(symbolsText);
-       
+
     }
 
 
@@ -303,42 +338,42 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < paylines.symbols.Count; i++)
         {
-           string text = null;
-           if(i < paylines.symbols.Count - 3)
-           {
-               if (paylines.symbols[i].multiplier[0] != 0)
-               {
-                   text += string.Concat("<color=#F8D229>", "5x - " + paylines.symbols[i].multiplier[0] +"x", "</color>");
-               }
-               if (paylines.symbols[i].multiplier[1] != 0)
-               {
-                   text += string.Concat("<color=#F8D229>", "\n4x - " + paylines.symbols[i].multiplier[1] + "x", "</color>");
-               }
-               if (paylines.symbols[i].multiplier[2] != 0)
-               {
-                   text += string.Concat("<color=#F8D229>", "\n3x - " + paylines.symbols[i].multiplier[2] + "x", "</color>");
-               }
-           }
-           else
-           {
-               switch (paylines.symbols[i].name.ToUpper())
-               {
-                    
-                   case "WILD":
-                       text += paylines.symbols[i].description;
-                       break;
-                   case "SCATTER":
-                       text += paylines.symbols[i].description;
-                       break;
-                   case "JACKPOT":
-                       text += paylines.symbols[i].description;
-                       break;
-                   case "BONUS":
-                       text += paylines.symbols[i].description;
-                       break;
-               }
-           }
-           if (SymbolsText[i]) SymbolsText[i].text = text;
+            string text = null;
+            if (i < paylines.symbols.Count - 3)
+            {
+                if (paylines.symbols[i].multiplier[0] != 0)
+                {
+                    text += string.Concat("<color=#F8D229>", "5x - " + paylines.symbols[i].multiplier[0] + "x", "</color>");
+                }
+                if (paylines.symbols[i].multiplier[1] != 0)
+                {
+                    text += string.Concat("<color=#F8D229>", "\n4x - " + paylines.symbols[i].multiplier[1] + "x", "</color>");
+                }
+                if (paylines.symbols[i].multiplier[2] != 0)
+                {
+                    text += string.Concat("<color=#F8D229>", "\n3x - " + paylines.symbols[i].multiplier[2] + "x", "</color>");
+                }
+            }
+            else
+            {
+                switch (paylines.symbols[i].name.ToUpper())
+                {
+
+                    case "WILD":
+                        text += paylines.symbols[i].description;
+                        break;
+                    case "SCATTER":
+                        text += paylines.symbols[i].description;
+                        break;
+                    case "JACKPOT":
+                        text += paylines.symbols[i].description;
+                        break;
+                    case "BONUS":
+                        text += paylines.symbols[i].description;
+                        break;
+                }
+            }
+            if (SymbolsText[i]) SymbolsText[i].text = text;
         }
     }
 
@@ -355,7 +390,7 @@ public class UIManager : MonoBehaviour
         if (MainPopup_Object) MainPopup_Object.SetActive(true);
     }
 
-    private void ClosePopup(GameObject Popup)
+    internal void ClosePopup(GameObject Popup)
     {
         if (audioController.m_Player_Listener.enabled) audioController.m_Click_Audio.Play();
         if (Popup) Popup.SetActive(false);
@@ -407,9 +442,9 @@ public class UIManager : MonoBehaviour
     {
         if (m_toggle)
         {
-            for(int i = 0; i < m_MenuButtonHolder.transform.childCount; i++)
+            for (int i = 0; i < m_MenuButtonHolder.transform.childCount; i++)
             {
-                m_MenuButtonHolder.transform.GetChild(i).DOLocalMoveY(195 -  (i * 120), 0.3f);
+                m_MenuButtonHolder.transform.GetChild(i).DOLocalMoveY(195 - (i * 120), 0.3f);
             }
             m_OpenMenu.gameObject.SetActive(false);
         }
@@ -439,9 +474,9 @@ public class UIManager : MonoBehaviour
 
     internal void ActivatePaytable(int index)
     {
-        for(int i = 0; i < paytableList.Length; i++)
+        for (int i = 0; i < paytableList.Length; i++)
         {
-            if(i == index)
+            if (i == index)
             {
                 paytableList[i].SetActive(true);
             }
@@ -451,12 +486,12 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        if(index == 0)
+        if (index == 0)
         {
             Left_Arrow.interactable = false;
             Right_Arrow.interactable = true;
         }
-        else if(index == paytableList.Length - 1)
+        else if (index == paytableList.Length - 1)
         {
             Left_Arrow.interactable = true;
             Right_Arrow.interactable = false;
