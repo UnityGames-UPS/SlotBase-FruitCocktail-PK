@@ -86,6 +86,7 @@ public class UIManager : MonoBehaviour
     private Button CloseDisconnect_Button;
     [SerializeField]
     private GameObject DisconnectPopup_Object;
+    [SerializeField] private GameObject ReconnectPopup_Object;
 
     [SerializeField] private AudioController audioController;
     [SerializeField] private SlotBehaviour slotManager;
@@ -235,7 +236,7 @@ public class UIManager : MonoBehaviour
         }
 
     }
-   public void ResetPopups()
+    public void ResetPopups()
     {
         foreach (GameObject go in Popups)
         {
@@ -297,7 +298,7 @@ public class UIManager : MonoBehaviour
         });
     }
 
-    internal void DisconnectionPopup(bool isReconnection)
+    internal void DisconnectionPopup()
     {
         //if(isReconnection)
         //{
@@ -312,6 +313,11 @@ public class UIManager : MonoBehaviour
         {
             OpenPopup(DisconnectPopup_Object);
         }
+    }
+
+    internal void ReconnectionPopup()
+    {
+        OpenPopup(ReconnectPopup_Object);
     }
 
     internal void InitialiseUIData(Paylines symbolsText)
@@ -469,6 +475,18 @@ public class UIManager : MonoBehaviour
         {
             CurrentIndex--;
             ActivatePaytable(CurrentIndex);
+        }
+    }
+
+    internal void CheckAndClosePopups()
+    {
+        if (ReconnectPopup_Object.activeInHierarchy)
+        {
+            ClosePopup(ReconnectPopup_Object);
+        }
+        if (DisconnectPopup_Object.activeInHierarchy)
+        {
+            ClosePopup(DisconnectPopup_Object);
         }
     }
 
